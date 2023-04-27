@@ -45,7 +45,7 @@ const LoginModal = (props) => {
 
     if (allowedDomains.includes(detectedEmail)) {
       if (detectedEmail === 'fda.com') {
-        navigate("/FDAHome");
+          navigate("/FDA/Patients");
       }
       else if (detectedEmail === 'janehopkins.com') {
         navigate("/JaneHopkinsDoctor");
