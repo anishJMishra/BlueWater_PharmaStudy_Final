@@ -3,11 +3,13 @@ import { Stack, Typography } from "@mui/material";
 import TopBanner from '../components/TopBanner';
 import LoginAndRegisterButtons from '../components/LoginAndRegisterButtons';
 import gif from '../assets/test1.gif';
+import logo from '../assets/blueWater_Logo.png';
+import ocean from '../assets/ocean.gif';
 
 const HomePage = () => {
   return (
-    <div style={{ height: "100vh" }} className="App">
-      <TopBanner/>
+    <div style={{ height: "100vh", backgroundColor: "black"}} className="App">
+      {/*<TopBanner/>*/}
         <Typography
           sx = {{
             pt: 10,
@@ -16,20 +18,31 @@ const HomePage = () => {
           align = "center"
           variant = "h4"
         >
-          Welcome. Login or register below to get started.
 
-          <p>
+         {
+
+         <h1 style={{color: "white"}}>
+              Blue Water Study
+
+          </h1>
+         } 
+
+          {/*<p>
           User: nsanchez1@fda.com, Password: Ironiciron54!
           User: nsanchez1@janehopkins.com, Password: Ironiciron53!
           User: nsanchez1@bavaria.com, Password: Ironiciron52!
-          </p>
+        </p>*/}
         </Typography>
       <Stack sx={{ pt: 10 }}
         direction = "row"
         justifyContent= "center"
         spacing = {7.5}
       >
-        <LoginAndRegisterButtons />
+
+        <div>
+          <img src={logo} style={{height: "35em"}}></img>
+          <LoginAndRegisterButtons />
+        </div>
        
         {/* <OrganizationButtons name = "FDA" logo = {FDAIcon} />
         <OrganizationButtons name = "Jane Hopkins" logo = {JHIcon} />

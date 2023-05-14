@@ -31,8 +31,6 @@ import ReactToPdf from "../../components/ReactToPdf";
       <div style={{padding: "2em"}}>
         <Patients_Display />
 
-        <p></p>
-        <ReactToPdf />
       </div>
     
       

@@ -7,6 +7,8 @@ const PatientTable = ({ patients, onPatientClick }) => {
     return <div>No patient data available.</div>;
   }
 
+  console.log(patients);
+
   return (
     <table className="patient-table">
       <thead>
@@ -20,13 +22,14 @@ const PatientTable = ({ patients, onPatientClick }) => {
         {patients.map((patient) => (
           <tr key={patient.id}>
             <td>
-              <Button onClick={() => onPatientClick(patient)} style={{backgroundColor: "yellow"}}>
-                Redacted
-              </Button>
+            <Button onClick={() => onPatientClick(patient)} style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
+  {patient.hidden === "no" ? patient.name : "Redacted"}
+</Button>
             </td>
             <td>{patient.dob}</td>
-            <td style={{backgroundColor: "pink"}}>Redacted</td>
-          </tr>
+            <td style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "pink" }}>
+  {patient.hidden === "no" ? patient.insuranceNumber : "Redacted"}
+</td>          </tr>
         ))}
       </tbody>
     </table>

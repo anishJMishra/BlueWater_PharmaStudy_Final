@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import logo from "../assets/bavarialogo.jpg";
+import logo from "../assets/bavaria.png";
 import Patients_Bavaria from "../pages/Bavaria/Patients_Bavaria";
 import View_Study from "../pages/Bavaria/View_Study_Bavaria";
 import Shipment_Page from "../pages/Bavaria/Shipment_Page_Bavaria";

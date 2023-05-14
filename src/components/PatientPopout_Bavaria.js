@@ -99,7 +99,9 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Paper sx={{ p: 2 }}>
               <Typography variant="subtitle1">Name</Typography>
-              <Typography variant="body2" style={{backgroundColor: "yellow"}}>Redacted</Typography>
+              <Typography variant="body2" style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
+  {patient.hidden === "no" ? patient.name : "Redacted"}
+</Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -111,8 +113,9 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Paper sx={{ p: 2 }}>
               <Typography variant="subtitle1">Insurance Number</Typography>
-              <Typography variant="body2" style={{backgroundColor: "yellow"}}>Redacted</Typography>
-            </Paper>
+              <Typography variant="body2" style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
+  {patient.hidden === "no" ? patient.insuranceNumber : "Redacted"}
+</Typography>            </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Paper sx={{ p: 2 }}>
@@ -156,9 +159,12 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell style={{backgroundColor: "yellow"}}>Redacted</TableCell>
-              <TableCell>{patient.dob}</TableCell>
-              <TableCell style={{backgroundColor: "yellow"}}>Redacted</TableCell>
+            <TableCell style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
+  {patient.hidden === "no" ? patient.name : "Redacted"}
+</TableCell>              <TableCell>{patient.dob}</TableCell>
+<TableCell style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
+  {patient.hidden === "no" ? patient.insuranceNumber : "Redacted"}
+</TableCell>
               <TableCell>{patient.height}</TableCell>
               <TableCell>{patient.weight}</TableCell>
               <TableCell>{patient.bloodPressure}</TableCell>
@@ -182,8 +188,12 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
             {tableRows.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{row.date}</TableCell>
-                <TableCell style={{backgroundColor: "pink"}}>Redacted - study pending</TableCell>
-                <TableCell style={{backgroundColor: "pink"}}>Redacted - study pending</TableCell>
+                <TableCell style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "pink" }}>
+  {patient.hidden === "no" ? row.viralLoad : "Redacted - study pending"}
+</TableCell>
+<TableCell style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "pink" }}>
+  {patient.hidden === "no" ? row.notes : "Redacted - study pending"}
+</TableCell>
               </TableRow>
             ))}
           </TableBody>

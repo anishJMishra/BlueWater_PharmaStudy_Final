@@ -87,33 +87,34 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
   }, [entities, patientName]);
 
   return (
-    <div style={{ border: "1px solid black", padding: "20em, 40em, 20em, 20em" }}>
+    <div style={{ padding: "20em, 40em, 20em, 20em" }}>
+<style>
+          {`
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+          `}
+        </style>
 
-        <Table>
+<h1 style={{textAlign: "center"}}>Ongoing Trials:</h1>
+        <button>
+            View Trials
+        <p></p>
+        <span><i className="fas fa-print"></i></span>
+      </button>
+
+      <p></p>
+
+        <Table style={{ border: "1px solid black", backgroundColor: "white"}}>
           <TableBody>
-
-            <TableRow>
-              <TableCell style={{fontSize: 50}}>Ongoing Trials: </TableCell>
-            </TableRow>
-
-            <TableRow>
-            <TableCell ><Button style={{fontSize: 30}}>View Trials</Button></TableCell>
-            </TableRow>
-
-            <TableRow>
-                <TableCell style={{fontSize: 30}}>Patient uuID  - Dosage information - Type of Drug</TableCell>
-              </TableRow>
-
             {tableRows.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell style={{fontSize: 30}}>Patient uuID: {row.uuID}</TableCell>
-                <TableCell style={{fontSize: 30}}>Dosage information: {row.placebo}</TableCell>
-                <TableCell style={{fontSize: 30}}>Type of Drug: {row.batchNumber}</TableCell>
+              <TableRow key={index} style={{borderTop: "1px solid black", borderBottom: "1px solid black"}}>
+                <TableCell style={{fontSize: 25}}>Patient uuID: {row.uuID}</TableCell>
+                <TableCell style={{fontSize: 25}}>Dosage information: {row.placebo}</TableCell>
+                <TableCell style={{fontSize: 25}}>Type of Drug: {row.batchNumber}</TableCell>
 
-                <TableCell style={{fontSize: 30}}>Study Name: {row.studyName}</TableCell>
-                <TableCell style={{fontSize: 30}}>Drug Name: {row.drugType}</TableCell>
-                <TableCell style={{fontSize: 30}}>Shipment history: {row.shipmentHistory}</TableCell>
-                <TableCell style={{fontSize: 30}}>Study Status: {row.studyStatus}</TableCell>
+                <TableCell style={{fontSize: 25}}>Study Name: {row.studyName}</TableCell>
+                <TableCell style={{fontSize: 25}}>Drug Name: {row.drugType}</TableCell>
+                <TableCell style={{fontSize: 25}}>Shipment history: {row.shipmentHistory}</TableCell>
+                <TableCell style={{fontSize: 25}}>Study Status: {row.studyStatus}</TableCell>
               </TableRow>
             ))}
       

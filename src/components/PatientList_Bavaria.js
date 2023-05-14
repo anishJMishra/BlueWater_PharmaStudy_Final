@@ -54,12 +54,28 @@ const PatientList = () => {
 
   return (
     <div>
+      <head>
+        <style>
+          {`
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+          `}
+        </style>
+      </head>
+
       <Stack direction="row">
-        <SideBanner_Bavaria />
-        <Box></Box>
+        {/* <SideBanner_Bavaria />*/}
+        
       </Stack>
-      <h1>Patient List</h1>
-      <Button>View Patients</Button>
+      <h1 style={{textAlign: "center"}}>Patient List</h1>
+      <button>
+        View Patients
+        <p></p>
+        <span><i className="fas fa-print"></i></span>
+      </button>
+
+      <p>
+        
+      </p>
       {loading ? (
         <Box
           display="flex"

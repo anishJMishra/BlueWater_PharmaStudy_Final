@@ -156,6 +156,7 @@ enum Vendia_OperationType {
   DELETE
   INVOKE
   ALL
+  ERASE_GLOBAL
 }
 
 type Vendia_Version_Connection_ {
@@ -194,6 +195,22 @@ enum Vendia_SyncMode {
   NODE_LEDGERED
   UNI_LEDGERED
   ASYNC
+}
+
+enum Vendia_EraseMode {
+  LOCAL
+  GLOBAL
+}
+
+type Vendia_Meta_Field {
+  _erased: [Vendia_Meta_Erased]
+  _hash: String!
+  _salt: String
+}
+
+type Vendia_Meta_Erased {
+  type: Vendia_EraseMode!
+  nodes: [String!]!
 }
 
 input Self_Drug_ConditionInput_ {
@@ -401,7 +418,9 @@ input Self_Patient_ConditionInput_ {
   currentlyInsured: Vendia_ModelStringInput_
   dob: Vendia_ModelStringInput_
   familyHistory: Vendia_ModelStringInput_
+  gender: Vendia_ModelStringInput_
   height: Vendia_ModelStringInput_
+  hidden: Vendia_ModelStringInput_
   _icdHealthCodesItem: Self_Patient_icdHealthCodes_icdHealthCodesItem_ConditionInput_
   insuranceNumber: Vendia_ModelStringInput_
   name: Vendia_ModelStringInput_
@@ -426,7 +445,9 @@ input Self_Patient_FilterInput_ {
   currentlyInsured: Vendia_ModelStringInput_
   dob: Vendia_ModelStringInput_
   familyHistory: Vendia_ModelStringInput_
+  gender: Vendia_ModelStringInput_
   height: Vendia_ModelStringInput_
+  hidden: Vendia_ModelStringInput_
   _icdHealthCodesItem: Self_Patient_icdHealthCodes_icdHealthCodesItem_FilterInput_
   insuranceNumber: Vendia_ModelStringInput_
   name: Vendia_ModelStringInput_
@@ -455,7 +476,9 @@ type Self_Patient {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem]
   insuranceNumber: String
   name: String
@@ -479,7 +502,9 @@ type Self_Patient_Partial_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_Partial_]
   insuranceNumber: String
   name: String
@@ -523,7 +548,9 @@ input Self_Patient_Input_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_Input_]
   insuranceNumber: String
   name: String
@@ -544,7 +571,9 @@ input Self_Patient_UpdateInput_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_UpdateInput_]
   insuranceNumber: String
   name: String
@@ -565,7 +594,9 @@ input Self_Patient_PartialInput_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_PartialInput_]
   insuranceNumber: String
   name: String
@@ -2633,6 +2664,7 @@ type Vendia_File {
   fileVersion: String
   vendia: Vendia_File_vendia
   _owner: String
+  _erased: [Vendia_Meta_Erased]
 }
 
 type Vendia_File_Partial_ {
@@ -3840,6 +3872,7 @@ type Mutation {
   putVendia_File(id: ID!, input: Vendia_File_Input_!, condition: Vendia_File_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_File_Transaction_Result_
   updateVendia_File(id: ID!, input: Vendia_File_UpdateInput_!, condition: Vendia_File_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_File_Transaction_Result_
   removeVendia_File(id: ID!, condition: Vendia_File_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_File_Delete_Transaction_Result_
+  eraseVendia_File(id: ID!, eraseMode: Vendia_EraseMode!, syncMode: Vendia_SyncMode!): Vendia_File_Transaction_Result_
   addVendia_Folder(input: Vendia_Folder_Input_!, syncMode: Vendia_SyncMode!): Vendia_Folder_Transaction_Result_
   removeVendia_Folder(id: ID!, condition: Vendia_Folder_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_Folder_Delete_Transaction_Result_
   addVendia_Contract(input: Vendia_Contract_Input_!, aclInput: Vendia_Acls_Input_, syncMode: Vendia_SyncMode!): Vendia_Contract_Transaction_Result_

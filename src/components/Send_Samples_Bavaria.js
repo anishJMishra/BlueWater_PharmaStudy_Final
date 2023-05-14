@@ -83,9 +83,10 @@ const Send_Samples = () => {
   };
 
   return (
-      <div style={{ textAlign: 'center', marginTop: '10em' }}>
+      <div style={{ textAlign: 'center', marginTop: '5em' }}>
 
-        <Table>
+<h1>Send Sample</h1>
+        <Table style={{marginTop: "5em"}}>
           <TableRow>
             <TableCell style={{ fontSize: 30 }}>
               Ongoing Study:
