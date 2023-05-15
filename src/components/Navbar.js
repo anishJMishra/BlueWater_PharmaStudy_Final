@@ -15,6 +15,10 @@ const Navbar = ({ onLogout }) => {
     navigate('/JaneHopkinsDoctor'); 
   };
 
+  const handleManageStudyClick = () => {
+    navigate('/JaneHopkins_ManageStudy'); 
+  };
+
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -26,6 +30,9 @@ const Navbar = ({ onLogout }) => {
         </Typography>
         <Button color="inherit" onClick = {handlePatientViewClick}>
           Patient View
+        </Button>
+        <Button color="inherit" onClick={handleManageStudyClick}>
+          Manage Study
         </Button>
         <Button color="inherit" onClick={handleAddPatientClick}>
           Add Patient 

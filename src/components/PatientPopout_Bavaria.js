@@ -15,6 +15,10 @@ import {
 } from "@mui/material";
 import { grey, yellow } from '@mui/material/colors';
 import useBavaria from "../hooks/useBavaria";
+import unknown from "../assets/profilePictures/unknownpatient.png";
+import man from "../assets/profilePictures/man.jpg";
+import woman from "../assets/profilePictures/woman.jpg";
+
 
 export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
   const { entities } = useBavaria();
@@ -97,6 +101,7 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
       return (
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4} lg={3}>
+
             <Paper sx={{ p: 2 }}>
               <Typography variant="subtitle1">Name</Typography>
               <Typography variant="body2" style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
@@ -220,6 +225,25 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
           maxWidth: "80vw",
         }}
       >
+
+      <Typography variant="h6" gutterBottom>
+        <div style={{ display: "flex" }}>
+          <div style={{ width: "10em", height: "10em", borderRadius: "50%", overflow: "hidden" }}>
+            <img
+              src={patient.hidden === "no" && patient.gender === "M" ? man : patient.hidden === "no" && patient.gender === "F" ? woman : unknown}
+              alt="Gender"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
+          <div style={{ marginLeft: "1em" }}>
+          <p>Name: {patient.hidden === "no" ? patient.name : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
+          <p>Date: {patient.hidden === "no" ? patient.dob : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
+          <p>Height/Weight: {patient.hidden === "no" ? `${patient.height} / ${patient.weight}` : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
+          </div>
+        </div>
+      </Typography>
+
+
         <Typography variant="h6" gutterBottom>
           Patient Data:
         </Typography>

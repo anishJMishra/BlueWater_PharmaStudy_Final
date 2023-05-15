@@ -16,7 +16,8 @@ import {
   Stack,
   CircularProgress,
 } from "@mui/material";
-import StudyProgress from '../components/StudyProgress';
+import StudyProgress from './StudyProgress';
+import search from "../assets/search.png";
 
 
 
@@ -38,6 +39,7 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
   const [patients, setPatients] = useState([]);
 
   const [isClickedTrial, setIsClickedTrial] = useState(false);
+
 
 
   const handlePatientClick = (patient) => {
@@ -108,7 +110,7 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
           `}
         </style>
 
-<h1 style={{textAlign: "center"}}>Ongoing Trials:</h1>
+<h1 style={{textAlign: "center"}}>Manage Study <img src={search} style={{height: "1.5em"}}></img></h1>
         <button>
             View Trials
         <p></p>
@@ -130,21 +132,40 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
 
 
                 {row.studyStatus === "accepted" || row.studyStatus === "completed" ? (
-  <button onClick={viewTrial}>View Trial</button>
-) : null}
-{isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
-  <div>
-          <TableCell>
-          <p style={{textDecoration: "underline"}}>Selected Patients for the Study Group:</p>
-          {row.selectedPatient && row.selectedPatient.length > 0 && (
-            row.selectedPatient.map((patient, index) => (
-              <p key={index}>{patient.name}</p>
-            ))
-          )}
-        </TableCell>
-        
-          </div>
-)}
+              <button onClick={viewTrial}>View Trial</button>
+            ) : null}
+            {isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
+              <div>
+                      <TableCell>
+                      <p style={{textDecoration: "underline"}}>Selected Patients for the Study Group:</p>
+                      {row.selectedPatient && row.selectedPatient.length > 0 && (
+                        row.selectedPatient.map((patient, index) => (
+                          <p key={index}>{patient.name}</p>
+                        ))
+                      )}
+                     </TableCell>
+                   </div>   
+              )}
+
+
+        { row.studyStatus === "pending" ? (
+              <button>Accept</button>
+            ) : null}
+            {isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
+              <div>
+
+                   </div>   
+              )}
+
+      {row.studyStatus === "accepted" ? (
+              <button>Conclude Study</button>
+            ) : null}
+            {isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
+              <div>
+
+                   </div>   
+              )}
+              
 
 
 

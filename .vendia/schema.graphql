@@ -214,9 +214,11 @@ type Vendia_Meta_Erased {
 }
 
 input Self_Drug_ConditionInput_ {
+  assigned: Vendia_ModelBooleanInput_
   batchNumber: Vendia_ModelStringInput_
   drugType: Vendia_ModelStringInput_
   id: Vendia_ModelStringInput_
+  _patientSelectedItem: Self_Drug_patientSelected_patientSelectedItem_ConditionInput_
   placebo: Vendia_ModelBooleanInput_
   shipmentHistory: Vendia_ModelStringInput_
   studyName: Vendia_ModelStringInput_
@@ -228,9 +230,11 @@ input Self_Drug_ConditionInput_ {
 
 input Self_Drug_FilterInput_ {
   _owner: Vendia_ModelStringInput_
+  assigned: Vendia_ModelBooleanInput_
   batchNumber: Vendia_ModelStringInput_
   drugType: Vendia_ModelStringInput_
   id: Vendia_ModelStringInput_
+  _patientSelectedItem: Self_Drug_patientSelected_patientSelectedItem_FilterInput_
   placebo: Vendia_ModelBooleanInput_
   shipmentHistory: Vendia_ModelStringInput_
   studyName: Vendia_ModelStringInput_
@@ -246,9 +250,11 @@ input Self_Drug_OrderInput_ {
 
 type Self_Drug {
   _id: ID!
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -259,9 +265,11 @@ type Self_Drug {
 
 type Self_Drug_Partial_ {
   _id: ID!
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_Partial_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -292,9 +300,11 @@ type Self_Drug_Connection_ {
 }
 
 input Self_Drug_Input_ {
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_Input_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -302,9 +312,11 @@ input Self_Drug_Input_ {
 }
 
 input Self_Drug_UpdateInput_ {
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_UpdateInput_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -312,9 +324,11 @@ input Self_Drug_UpdateInput_ {
 }
 
 input Self_Drug_PartialInput_ {
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_PartialInput_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -605,6 +619,42 @@ input Self_Patient_PartialInput_ {
   temperature: String
   uuid: String
   weight: String
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_ConditionInput_ {
+  name: Vendia_ModelStringInput_
+  _and: [Self_Drug_patientSelected_patientSelectedItem_ConditionInput_]
+  _or: [Self_Drug_patientSelected_patientSelectedItem_ConditionInput_]
+  _not: Self_Drug_patientSelected_patientSelectedItem_ConditionInput_
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_FilterInput_ {
+  name: Vendia_ModelStringInput_
+  _and: [Self_Drug_patientSelected_patientSelectedItem_FilterInput_]
+  _or: [Self_Drug_patientSelected_patientSelectedItem_FilterInput_]
+  _not: Self_Drug_patientSelected_patientSelectedItem_FilterInput_
+}
+
+type Self_Drug_patientSelected_patientSelectedItem {
+  name: String
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Partial_ {
+  name: String
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Result_ {
+  error: String
+  result: Self_Drug_patientSelected_patientSelectedItem
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Transaction_Result_ {
+  transaction: Vendia_Transaction!
+  result: Self_Drug_patientSelected_patientSelectedItem
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Delete_Transaction_Result_ {
+  transaction: Vendia_Transaction!
 }
 
 input Self_Patient_allergies_allergiesItem_ConditionInput_ {
@@ -3953,6 +4003,18 @@ type Schema {
   query: Query
   mutation: Mutation
   subscription: Subscription
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_Input_ {
+  name: String
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_UpdateInput_ {
+  name: String
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_PartialInput_ {
+  name: String
 }
 
 input Self_Patient_allergies_allergiesItem_Input_ {

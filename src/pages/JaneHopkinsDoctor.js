@@ -65,6 +65,14 @@ const JaneHopkinsDoctor = () => {
 
   return (
     <div>
+      <head>
+        <style>
+          {`
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+          `}
+        </style>
+      </head>
+
       <TopBanner />
       <Navbar onLogout={handleLogout} />
       <Stack direction="row">
@@ -72,6 +80,13 @@ const JaneHopkinsDoctor = () => {
         <Box></Box>
       </Stack>
       <h1>Patient List</h1>
+
+      <button>
+        View Patients
+        <p></p>
+        <span><i className="fas fa-print"></i></span>
+      </button>
+
       
       {loading ? (
         <Box

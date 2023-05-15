@@ -16,6 +16,7 @@ import {
     CircularProgress,
   } from "@mui/material";
   import useBavaria from "../hooks/useBavaria";
+  import sample from "../assets/sample.png";
 
 
 const Send_Samples = () => {
@@ -35,7 +36,6 @@ const Send_Samples = () => {
 
       let errorResponse = "";
       let submit = true;
-
 
       for (const drug of drugList.items) {
         //console.log(drug); <-- Logs and see why other items than id will not show up in console.
@@ -69,6 +69,8 @@ const Send_Samples = () => {
           "studyStatus": studyStatus,
           "shipmentHistory": shippingStatus
         });
+
+        alert(studyName + " Shipment Order Sent!");
       } else {
         alert(errorResponse + " Already Exist!");
         console.log(errorResponse + " Already Exist!");
@@ -85,7 +87,7 @@ const Send_Samples = () => {
   return (
       <div style={{ textAlign: 'center', marginTop: '5em' }}>
 
-<h1>Send Sample</h1>
+<h1>Send Sample <img src={sample} style={{ height: "1.5em" }} /></h1>
         <Table style={{marginTop: "5em"}}>
           <TableRow>
             <TableCell style={{ fontSize: 30 }}>
@@ -127,17 +129,18 @@ const Send_Samples = () => {
           </TableRow>
 
           <TableRow>
-            <TableCell style={{ fontSize: 30 }}>
-              Placebo:
-              <input
-                style={{ fontSize: 25, padding: 10, marginLeft: 10, borderRadius: 10 }}
-                type="text"
-                id="input-box"
-                value={placebo}
-                onChange={(event) => setPlacebo(event.target.value)}
-              />
-            </TableCell>
-          </TableRow>
+  <TableCell style={{ fontSize: 30 }}>
+    Placebo:
+    <select
+      style={{ fontSize: 25, padding: 10, marginLeft: 10, borderRadius: 10 }}
+      value={placebo.toString()}
+      onChange={(event) => setPlacebo(event.target.value === "true")}
+    >
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+  </TableCell>
+</TableRow>
 
           <TableRow>
             <TableCell style={{ fontSize: 30 }}>

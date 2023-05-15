@@ -132,6 +132,20 @@
           },
           "id": {
             "type": "string"
+          },
+          "assigned": {
+            "type": "boolean"
+          },
+          "patientSelected": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
