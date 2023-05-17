@@ -3,8 +3,11 @@ import logoutImg from '../assets/logout.png';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import logo from "../assets/hospital.png";
+import { auth } from "../firebase-config";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Navbar = ({ onLogout }) => {
+  const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
   const handleAddPatientClick = () => {
@@ -27,6 +30,11 @@ const Navbar = ({ onLogout }) => {
       <img style={{ width: '100px', height: '100px' }} src={logo} alt="Logo" />
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Jane Hopkins
+        </Typography>
+        <Typography
+            sx={{pr: '10px'}}
+          >
+            User: {user.email}
         </Typography>
         <Button color="inherit" onClick = {handlePatientViewClick}>
           Patient View

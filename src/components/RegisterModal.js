@@ -12,6 +12,9 @@ const RegisterModal = (props) => {
 
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     const [user, setUser] = useState({});
 
@@ -22,17 +25,44 @@ const RegisterModal = (props) => {
 
     }, []);
 
+    useEffect(() => {
+      if (showModal) {
+        setTimeout(() => {
+          setShowModal(false);
+        }, 3000);
+      }
+    }, [showModal]);
+
+
     const register = async () => {
-        try {
+
+      const prohibitedDomains = ['gmail.com','yahoo.com', 'hotmail.com'];
+
+      const detectedEmail = registerEmail.split('@')[1];
+
+      if (prohibitedDomains.includes(detectedEmail)) {
+        setErrorMessage('Invalid domain in user. Please try again.');
+        setSuccessMessage('');
+      } else {
         const user = await createUserWithEmailAndPassword(
-            auth,
-            registerEmail,
-            registerPassword
-        );
+                  auth,
+                  registerEmail,
+                  registerPassword
+              );
         console.log(user);
-        } catch (error) {
-        console.log(error.message);
-        }
+
+        setSuccessMessage('Account registered successfully. Proceed by logging in.');
+        setErrorMessage('');
+        // if (detectedEmail === 'fda.com') {
+        //   navigate("/FDAHome");
+        // }
+        // else if (detectedEmail === 'janehopkins.com') {
+        //   navigate("/JaneHopkinsDoctor");
+        // }
+        // else if (detectedEmail === 'bavaria.com') {
+        //   navigate("/BavariaHome");
+        // }
+      }
     };
 
     const { onClose } = props;
@@ -95,6 +125,7 @@ const RegisterModal = (props) => {
                     <input
                     style={{ padding: '8px', borderRadius: '5px' }}
                         placeholder="Password..."
+                        type="password"
                         onChange={(event) => {
                         setRegisterPassword(event.target.value);
                         }}
@@ -104,9 +135,13 @@ const RegisterModal = (props) => {
                     <button onClick={register} style={{padding: "1em", borderRadius: "5px", backgroundColor: "#003987", color: "white"}}> Create User</button>
                 </div>
 
-                <h4> Register a user above. After doing so,
-                proceed to Login window to access pages. </h4>
-                {/* <h4>{user ? "User created. Go to login window and login."  : "Register a user above."}</h4> */}
+                {/* <Modal isOpen={showModal}>
+                  <h2>{user ? successMessage : errorMessage}</h2>
+                </Modal> */}
+
+                {/* <h4> Register a user above. After doing so,
+                proceed to Login window to access pages. </h4> */}
+                <h2>{user ? successMessage : errorMessage}</h2>
             </Stack>
           </Stack>
         </Box>   

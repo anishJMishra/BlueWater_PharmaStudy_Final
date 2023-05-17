@@ -7,8 +7,12 @@ import Shipment_Page from "../pages/Bavaria/Shipment_Page_Bavaria";
 import logoutImg from '../assets/logout.png';
 import { Route, Routes, Link } from "react-router-dom";
 import Bavariatheme from "../themes/Bavariatheme";
+import { auth } from "../firebase-config";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Navbar_Bavaria = ({ onLogout }) => {
+  const [user] = useAuthState(auth);
+
   return (
     <ThemeProvider theme = {Bavariatheme}>
       <div>
@@ -17,6 +21,12 @@ const Navbar_Bavaria = ({ onLogout }) => {
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             <img style={{ width: '100px', height: '100px' }} src={logo} alt="Logo" />
+          </Typography>
+
+          <Typography
+            sx={{pr: '10px'}}
+          >
+            User: {user.email}
           </Typography>
 
           <Button color="inherit"

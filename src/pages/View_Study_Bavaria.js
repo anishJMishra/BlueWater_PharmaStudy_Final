@@ -1,14 +1,12 @@
 import React from 'react';
-import Navbar_Bavaria from "../../components/Navbar_Bavaria";
+import Patients_Display from '../components/Patients_Display_Bavaria';
+import Navbar_Bavaria from "../components/Navbar_Bavaria";
+import TopBanner from "../components/TopBanner";
 import { useNavigate } from "react-router-dom";
 import { signOut } from 'firebase/auth';
-import { auth } from "../../firebase-config";
+import { auth } from "../firebase-config";
 import { Navigate } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
-import TopBanner from "../../components/TopBanner";
-import PatientList from "../../components/PatientList_Bavaria";
-import ReactToPdf from "../../components/ReactToPdf";
-//import Patients_Bavaria from "./Patients_Bavaria";
 
 const RouteProtect = (allowedDomains, Component) => {
   const GuardedComponent = ({ ...props }) => {
@@ -30,33 +28,36 @@ const RouteProtect = (allowedDomains, Component) => {
   return GuardedComponent;
 };
 
-const Patients_Bavaria = () => {
-  const navigate = useNavigate();
+  const View_Study = () => {
+    const navigate = useNavigate();
 
-const handleLogout = async () => {
-  await signOut(auth);
-  navigate("/");
-};
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
 
   return (
 
     <div>
-      
       <TopBanner/>
 
       <Navbar_Bavaria onLogout={handleLogout} />
 
 
-      <div>
-        <PatientList/>
-      </div>
 
-      <div>
-      </div>
+      
+        <div style={{textAlign: "left", fontSize: "12px"}}>
+          <h1>Ongoing Study: Study_name</h1>
+          <h1>Shipment History: [50] drug_name vs [50] Placebo Shipment Date</h1>
+        </div>
 
-     {/* <ReactToPdf />*/}
+
+          <Patients_Display />
+      
+
+      
     </div>
   )
 }
 
-export default RouteProtect(["bavaria.com"], Patients_Bavaria);
+export default RouteProtect(["bavaria.com"], View_Study);

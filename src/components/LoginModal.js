@@ -12,7 +12,7 @@ import { auth } from "../firebase-config";
 import "./LoginModal.css";
 import background from "../assets/background.jpeg";
 
-const LoginModal = (props) => {
+const LoginModal = (props, { onLogin }) => {
 
   const navigate = useNavigate();
 
@@ -36,15 +36,8 @@ const LoginModal = (props) => {
         loginPassword
       );
       console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
+      const detectedEmail = loginEmail.split('@')[1];
 
-    const allowedDomains = ['fda.com', 'janehopkins.com', 'bavaria.com'];
-
-    const detectedEmail = loginEmail.split('@')[1];
-
-    if (allowedDomains.includes(detectedEmail)) {
       if (detectedEmail === 'fda.com') {
         navigate("/FDAHome");
       }
@@ -54,7 +47,10 @@ const LoginModal = (props) => {
       else if (detectedEmail === 'bavaria.com') {
         navigate("/Bavaria");
       }
-    }
+
+    } catch (error) {
+      console.log(error.message);
+    }   
   };
 
   const logout = async () => {

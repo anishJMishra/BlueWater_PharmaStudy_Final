@@ -5,6 +5,28 @@ import TopBanner from "../../components/TopBanner";
 import { useNavigate } from "react-router-dom";
 import { signOut } from 'firebase/auth';
 import { auth } from "../../firebase-config";
+import { Navigate } from "react-router-dom";
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+const RouteProtect = (allowedDomains, Component) => {
+  const GuardedComponent = ({ ...props }) => {
+    const [user] = useAuthState(auth);
+
+    if (!user) {
+      return <Navigate to="/" />;
+    }
+
+    const domain = user.email.split("@")[1];
+
+    if (!allowedDomains.includes(domain)) {
+      return <Navigate to="/" />;
+    }
+
+    return <Component {...props} />;
+  };
+
+  return GuardedComponent;
+};
 
 
 const Shipment_Page = () => {
@@ -29,4 +51,4 @@ const handleLogout = async () => {
   )
 }
 
-export default Shipment_Page;
+export default RouteProtect(["bavaria.com"], Shipment_Page);
