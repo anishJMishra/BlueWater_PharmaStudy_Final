@@ -16,6 +16,7 @@ import {
   Stack,
   CircularProgress,
 } from "@mui/material";
+import StudyProgress from '../components/StudyProgress';
 
 
 
@@ -28,20 +29,16 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
   const sendThisToPreviousVisits = patient?.name;  
   const [loading, setLoading] = useState(true);
   const [tableRows, setTableRows] = useState([]);
-
-  const [tableRowsPending, setTableRowsPending] = useState([]);
-  const [tableRowsAccepted, setTableRowsAccepted] = useState([]);
-  const [tableRowsRejected, setTableRowsRejected] = useState([]);
-  const [tableRowsCompleted, setTableRowsCompleted] = useState([]);
-
+  const [allPatient, setAllPatients] = useState([]);
+  const [selectedPatient, setSelectedPatient] = useState([]);
   const [patientName, setpatientName] = useState("David Upal"); // setPatientName when clicked on a name
 
-
-
-  const [selectedPatient, setSelectedPatient] = useState(null);
   const [isPopoutOpen, setIsPopoutOpen] = useState(false);
 
   const [patients, setPatients] = useState([]);
+
+  const [isClickedTrial, setIsClickedTrial] = useState(false);
+
 
   const handlePatientClick = (patient) => {
     setSelectedPatient(patient);
@@ -52,349 +49,161 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
     setIsPopoutOpen(false);
     setSelectedPatient(null);
   };
-  /*************************************************************** */
-  const [showPending, setShowPending] = useState(false);
-  const [showAccepted, setShowAccepted] = useState(false);
-  const [showRejected, setShowRejected] = useState(false);
-  const [showCompleted, setShowCompleted] = useState(false);
-  const [showAll, setShowAll] = useState(false);
 
-  const handlePendingClick = () => {
-    setShowPending(!showPending);
-  };
+  const viewTrial = () => {
+    setIsClickedTrial(!isClickedTrial);
+  }
 
-  const handleAcceptedClick = () => {
-    setShowAccepted(!showAccepted);
-  };
-
-  const handleRejectedClick = () => {
-    setShowRejected(!showRejected);
-  };
-
-  const handleCompletedClick = () => {
-    setShowCompleted(!showCompleted);
-  };
-
-  const handleAllClick = () => {
-    setShowAll(!showAll);
-  };
-
-
-    /*************************************************************** */
-
-
-/*************************************************************** */
 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
         const drugResponse = await entities.drug.list();
-        const drugResponseSize = await drugResponse.items.length;
-
-        let evaluate = "";
-
-        const rows = [
-
-        ];
-
-        const rowsPending = [
-
-        ];
-
-        const rowsAccepted = [
-
-        ];
-
-        const rowsRejected = [
-
-        ];
-
-        const rowsCompleted = [
-
-        ];
-
+        const drugResponseSize = drugResponse.items.length;
+  
+        const patientResponse = await entities.patient.list();
+        const patientResponseSize = patientResponse.items.length;
+  
+        const rows = [];
+        const allPatient = [];
+  
+        for (let i = 0; i < patientResponseSize; i++) {
+          allPatient.push({
+            patientName: patientResponse.items[i].name,
+          });
+        }
+  
         for (let i = 0; i < drugResponseSize; i++) {
-          console.log(drugResponse.items[i]);
-
-          if (drugResponse.items[i].studyStatus === "pending"){
-            evaluate = "Accept/";
-          }
-
           rows.push({
-            evaluate: "",
+            patientName: patientResponse.items[i].name,
             studyName: drugResponse.items[i].studyName,
             studyStatus: drugResponse.items[i].studyStatus,
             shipmentHistory: drugResponse.items[i].shipmentHistory,
             drugType: drugResponse.items[i].drugType,
             uuID: drugResponse.items[i].id,
             placebo: drugResponse.items[i].placebo,
-            batchNumber: drugResponse.items[i].batchNumber
-          });
-
-          if (drugResponse.items[i].studyStatus === "pending"){
-            rowsPending.push({
-              evaluate: "",
-              studyName: drugResponse.items[i].studyName,
-              studyStatus: drugResponse.items[i].studyStatus,
-              shipmentHistory: drugResponse.items[i].shipmentHistory,
-              drugType: drugResponse.items[i].drugType,
-              uuID: drugResponse.items[i].id,
-              placebo: drugResponse.items[i].placebo,
-              batchNumber: drugResponse.items[i].batchNumber
-            });
-          }
-
-          if (drugResponse.items[i].studyStatus === "accepted"){
-          rowsAccepted.push({
-            evaluate: "",
-            studyName: drugResponse.items[i].studyName,
-            studyStatus: drugResponse.items[i].studyStatus,
-            shipmentHistory: drugResponse.items[i].shipmentHistory,
-            drugType: drugResponse.items[i].drugType,
-            uuID: drugResponse.items[i].id,
-            placebo: drugResponse.items[i].placebo,
-            batchNumber: drugResponse.items[i].batchNumber
+            batchNumber: drugResponse.items[i].batchNumber,
+            selectedPatient: drugResponse.items[i].patientSelected,
           });
         }
-
-        if (drugResponse.items[i].studyStatus === "rejected"){
-
-          rowsRejected.push({
-            evaluate: "",
-            studyName: drugResponse.items[i].studyName,
-            studyStatus: drugResponse.items[i].studyStatus,
-            shipmentHistory: drugResponse.items[i].shipmentHistory,
-            drugType: drugResponse.items[i].drugType,
-            uuID: drugResponse.items[i].id,
-            placebo: drugResponse.items[i].placebo,
-            batchNumber: drugResponse.items[i].batchNumber
-          });
-        }
-
-        if (drugResponse.items[i].studyStatus === "completed"){
-          rowsCompleted.push({
-            evaluate: "",
-            studyName: drugResponse.items[i].studyName,
-            studyStatus: drugResponse.items[i].studyStatus,
-            shipmentHistory: drugResponse.items[i].shipmentHistory,
-            drugType: drugResponse.items[i].drugType,
-            uuID: drugResponse.items[i].id,
-            placebo: drugResponse.items[i].placebo,
-            batchNumber: drugResponse.items[i].batchNumber
-          });
-        }
-        }
-
-
+  
         setTableRows(rows);
-
-        setTableRowsPending(rowsPending);
-        setTableRowsAccepted(rowsAccepted);
-        setTableRowsRejected(rowsRejected);
-        setTableRowsCompleted(rowsCompleted);
-
-        console.log(rows);
-
+        setAllPatients(allPatient);
+  
+        console.log(rows[7].selectedPatient);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching patients:", error);
       }
     };
-
+  
     fetchPatients();
-  }, [entities, patientName]);
+  }, [entities]);
 
   return (
-    <div style={{ border: "1px solid black", padding: "20em, 40em, 20em, 20em" }}>
+    <div style={{ padding: "20em, 40em, 20em, 20em" }}>
+<style>
+          {`
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+          `}
+        </style>
 
-        <Table>
+<h1 style={{textAlign: "center"}}>Ongoing Trials:</h1>
+        <button>
+            View Trials
+        <p></p>
+        <span><i className="fas fa-print"></i></span>
+      </button>
+
+      <p></p>
+
+        <Table style={{ border: "1px solid black", backgroundColor: "white"}}>
           <TableBody>
-
-            <TableRow>
-              <TableCell style={{fontSize: 50}}>Ongoing Trials: </TableCell>
-            </TableRow>
-
-            <p onClick={handlePendingClick}><p style={{fontSize: 30, textDecoration: 'underline'}}>Pending:</p></p>
-
-
-            {showPending && (
-          
-              <div>
-
-            
-            <TableRow>
-                <TableCell style={{fontSize: 30, textDecoration: 'underline'}}>Patient uuID  - Dosage information - Type of Drug</TableCell>
-              </TableRow>
-
-            {tableRowsPending.map((rowsPending, index) => (
-              <div>
-                <TableRow key={index}>
-
-                <TableCell style={{ fontSize: 30}}>Patient uuID: {rowsPending.uuID}</TableCell>
-                <TableCell style={{ fontSize: 30 }}>Dosage information: {rowsPending.placebo}</TableCell>
-                <TableCell style={{ fontSize: 30 }}>Type of Drug: {rowsPending.batchNumber}</TableCell>
-
-                <TableCell style={{ fontSize: 30 }}>Study Name: {rowsPending.studyName}</TableCell>
-                <TableCell style={{ fontSize: 30 }}>Drug Name: {rowsPending.drugType}</TableCell>
-                <TableCell style={{ fontSize: 30 }}>Shipment history: {rowsPending.shipmentHistory}</TableCell>
-                <TableCell style={{ fontSize: 30 }}>Study Status: {rowsPending.studyStatus}</TableCell>
-              </TableRow>
+            {tableRows.map((row, index) => (
+              <TableRow
+              
+            >
+              <TableCell style={{ fontSize: 25 }}>
+                <p style={{ textDecoration: "underline" }}>Patient uuID:</p>
+                <p>{row.uuID}</p>
 
 
-              <TableRow>
-                  <TableCell style={{ fontSize: 30 }}><Button>Accept</Button></TableCell>
-                  <TableCell style={{ fontSize: 30 }}><Button>Reject</Button></TableCell>
-                </TableRow>
-                </div>
-            ))}
-             </div>
-            )}
 
-          <p onClick={handleAcceptedClick}><p style={{fontSize: 30, textDecoration: 'underline'}}>Accepted:</p></p>
-
-
-        {showAccepted && (
-
-          <div>
-
-
-        <TableRow>
-            <TableCell style={{fontSize: 30, textDecoration: 'underline'}}>Patient uuID  - Dosage information - Type of Drug</TableCell>
-          </TableRow>
-
-        {tableRowsAccepted.map((rowsAccepted, index) => (
-          <div>
-          <TableRow key={index}>
-            <TableCell style={{fontSize: 30}}>Patient uuID: {rowsAccepted.uuID}</TableCell>
-            <TableCell style={{fontSize: 30}}>Dosage information: {rowsAccepted.placebo}</TableCell>
-            <TableCell style={{fontSize: 30}}>Type of Drug: {rowsAccepted.batchNumber}</TableCell>
-
-            <TableCell style={{fontSize: 30}}>Study Name: {rowsAccepted.studyName}</TableCell>
-            <TableCell style={{fontSize: 30}}>Drug Name: {rowsAccepted.drugType}</TableCell>
-            <TableCell style={{fontSize: 30}}>Shipment history: {rowsAccepted.shipmentHistory}</TableCell>
-            <TableCell style={{fontSize: 30}}>Study Status: {rowsAccepted.studyStatus}</TableCell>
-
-          </TableRow>
-
-          <TableRow>
-                  <TableCell style={{ fontSize: 30 }}><Button>Accept</Button></TableCell>
-                  <TableCell style={{ fontSize: 30 }}><Button>Reject</Button></TableCell>
-                </TableRow>
-                </div>
-        ))}
-        </div>
-        )}
-
-<p onClick={handleRejectedClick}><p style={{fontSize: 30, textDecoration: 'underline'}}>Rejected:</p></p>
-
-
-      {showRejected && (
-
-        <div>
-
-
-        <TableRow>
-            <TableCell style={{fontSize: 30, textDecoration: 'underline'}}>Patient uuID  - Dosage information - Type of Drug</TableCell>
-          </TableRow>
-
-        {tableRowsRejected.map((rowsRejected, index) => (
-          <div>
-          <TableRow key={index}>
-            <TableCell style={{fontSize: 30}}>Patient uuID: {rowsRejected.uuID}</TableCell>
-            <TableCell style={{fontSize: 30}}>Dosage information: {rowsRejected.placebo}</TableCell>
-            <TableCell style={{fontSize: 30}}>Type of Drug: {rowsRejected.batchNumber}</TableCell>
-
-            <TableCell style={{fontSize: 30}}>Study Name: {rowsRejected.studyName}</TableCell>
-            <TableCell style={{fontSize: 30}}>Drug Name: {rowsRejected.drugType}</TableCell>
-            <TableCell style={{fontSize: 30}}>Shipment history: {rowsRejected.shipmentHistory}</TableCell>
-            <TableCell style={{fontSize: 30}}>Study Status: {rowsRejected.studyStatus}</TableCell>
-
-          </TableRow>
-
-          <TableRow>
-                  <TableCell style={{ fontSize: 30 }}><Button>Accept</Button></TableCell>
-                  <TableCell style={{ fontSize: 30 }}><Button>Reject</Button></TableCell>
-                </TableRow>
-
-                </div>
-        ))}
-        </div>
-        )}
-
-<p onClick={handleCompletedClick}><p style={{fontSize: 30, textDecoration: 'underline'}}>Completed:</p></p>
-
-
-{showCompleted && (
-
+                {row.studyStatus === "accepted" || row.studyStatus === "completed" ? (
+  <button onClick={viewTrial}>View Trial</button>
+) : null}
+{isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
   <div>
-
-
-<TableRow>
-    <TableCell style={{fontSize: 30, textDecoration: 'underline'}}>Patient uuID  - Dosage information - Type of Drug</TableCell>
-  </TableRow>
-
-{tableRowsCompleted.map((rowsCompleted, index) => (
-  <div>
-  <TableRow key={index}>
-    <TableCell style={{fontSize: 30}}>Patient uuID: {rowsCompleted.uuID}</TableCell>
-    <TableCell style={{fontSize: 30}}>Dosage information: {rowsCompleted.placebo}</TableCell>
-    <TableCell style={{fontSize: 30}}>Type of Drug: {rowsCompleted.batchNumber}</TableCell>
-
-    <TableCell style={{fontSize: 30}}>Study Name: {rowsCompleted.studyName}</TableCell>
-    <TableCell style={{fontSize: 30}}>Drug Name: {rowsCompleted.drugType}</TableCell>
-    <TableCell style={{fontSize: 30}}>Shipment history: {rowsCompleted.shipmentHistory}</TableCell>
-    <TableCell style={{fontSize: 30}}>Study Status: {rowsCompleted.studyStatus}</TableCell>
-
-  </TableRow>
-
-  <TableRow>
-                  <TableCell style={{ fontSize: 30 }}><Button>Accept</Button></TableCell>
-                  <TableCell style={{ fontSize: 30 }}><Button>Reject</Button></TableCell>
-                </TableRow>
-
-                </div>
-))}
- </div>
+          <TableCell>
+          <p style={{textDecoration: "underline"}}>Selected Patients for the Study Group:</p>
+          {row.selectedPatient && row.selectedPatient.length > 0 && (
+            row.selectedPatient.map((patient, index) => (
+              <p key={index}>{patient.name}</p>
+            ))
+          )}
+        </TableCell>
+        
+          </div>
 )}
 
-<p onClick={handleAllClick}><p style={{fontSize: 30, textDecoration: 'underline'}}>ALL:</p></p>
 
 
-      {showAll && (
+              </TableCell>
+              <TableCell style={{ fontSize: 25 }}>
+                <p style={{ textDecoration: "underline" }}>Dosage information:</p>{" "}
+                {row.placebo}
+              </TableCell>
+              <TableCell style={{ fontSize: 25 }}>
+                <p style={{ textDecoration: "underline" }}>Type of Drug:</p>{" "}
+                {row.batchNumber}
+              </TableCell>
+              <TableCell style={{ fontSize: 25 }}>
+                <p style={{ textDecoration: "underline" }}>Study Name:</p> {row.studyName}
+              </TableCell>
+              <TableCell style={{ fontSize: 25 }}>
+                <p style={{ textDecoration: "underline" }}>Drug Name:</p> {row.drugType}
+              </TableCell>
+              <TableCell style={{ fontSize: 25 }}>
+                <p style={{ textDecoration: "underline" }}>Shipment history:</p>{" "}
+                {row.shipmentHistory}
+              </TableCell>
+              <TableCell style={{ fontSize: 25 }}>
+                <p
+                  key={index}
 
-        <div>
+                >
+                  Study Status:
+                </p>{" "}
+                <p style={{
+                    borderTop: "1px solid black",
+                    borderBottom: "1px solid black",
+                    backgroundColor:
+                      row.studyStatus === "accepted"
+                        ? "#0000FF"
+                        : row.studyStatus === "rejected"
+                        ? "red"
+                        : row.studyStatus === "pending"
+                        ? "yellow"
+                        : row.studyStatus === "completed"
+                        ? "#00FF00"
+                        : "inherit",
+                  }}>
+                    {row.studyStatus}
+                    
+                  </p>
+                
+              </TableCell>
 
 
-        <TableRow>
-            <TableCell style={{fontSize: 30, textDecoration: 'underline'}}>Patient uuID  - Dosage information - Type of Drug</TableCell>
-          </TableRow>
+              
+            </TableRow>
 
-        {tableRows.map((row, index) => (
-          <div>
-          <TableRow key={index}>
-            <TableCell style={{fontSize: 30}}>Patient uuID: {row.uuID}</TableCell>
-            <TableCell style={{fontSize: 30}}>Dosage information: {row.placebo}</TableCell>
-            <TableCell style={{fontSize: 30}}>Type of Drug: {row.batchNumber}</TableCell>
-
-            <TableCell style={{fontSize: 30}}>Study Name: {row.studyName}</TableCell>
-            <TableCell style={{fontSize: 30}}>Drug Name: {row.drugType}</TableCell>
-            <TableCell style={{fontSize: 30}}>Shipment history: {row.shipmentHistory}</TableCell>
-            <TableCell style={{fontSize: 30}}>Study Status: {row.studyStatus}</TableCell>
-
-          </TableRow>
-
-                </div>
-        ))}
-        </div>
-        )}
+            
+            ))}
+      
           </TableBody>
         </Table>
     
-
-
-
-
-
     </div>
   );
 };

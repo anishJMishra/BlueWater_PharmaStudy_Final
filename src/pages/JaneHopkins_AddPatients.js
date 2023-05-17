@@ -56,6 +56,15 @@ const JHAddPatient = () => {
     const address = e.target.elements.address.value;
     const dob = formatDate(e.target.elements.dob.value);
     const insuranceNumber = e.target.elements.insuranceNumber.value;
+    const height = e.target.elements.height.value;
+    const weight = e.target.elements.weight.value;
+    const systolicPressure = e.target.elements.systolicPressure.value;
+    const diastolicPressure = e.target.elements.diastolicPressure.value;
+    const bloodPressure = systolicPressure + '/' + diastolicPressure + " mmHg";
+    const bloodType = e.target.elements.bloodType.value;
+    const temperature = e.target.elements.temperature.value;
+    const oxygenSaturation = e.target.elements.oxygenSaturation.value;
+
     const name = firstName + ' ' + lastName;
 
     //Function to reset the form after the patient has been added successfully
@@ -65,12 +74,21 @@ const JHAddPatient = () => {
       e.target.elements.address.value = '';
       e.target.elements.dob.value = '';
       e.target.elements.insuranceNumber.value = '';
+      e.target.elements.height.value = '';
+      e.target.elements.weight.value = '';
+      e.target.elements.systolicPressure.value = '';
+      e.target.elements.diastolicPressure.value = '';
+      e.target.elements.temperature.value = '';
+      e.target.elements.bloodType.value = '';
+      e.target.elements.oxygenSaturation.value = '';
+
+
     };
 
 
     try {
       const response = await entities.patient.add({
-        name, address, insuranceNumber, dob,
+        name, address, insuranceNumber, dob, height, weight, bloodPressure,bloodType,temperature, oxygenSaturation,
       });
       console.log("New Patient added:", response);
       handleOpen();
@@ -146,6 +164,77 @@ const JHAddPatient = () => {
                     required
                   />
                 </Grid>
+                <Grid item xs={12} sm = {6}>
+                  <TextField
+                    name="height"
+                    label="Height (in inches)"
+                    type = "number"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    
+                  />
+                </Grid>
+                <Grid item xs={12} sm = {6}>
+                  <TextField
+                    name="weight"
+                    label="Weight (in lbs)"
+                    type = "number"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    name="systolicPressure"
+                    label="Systolic Pressure (mmHg)"
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    name="diastolicPressure"
+                    label="Diastolic Pressure (mmHg)"
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    name="bloodType"
+                    label="Blood Type"
+                     variant="outlined"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    name="temperature"
+                    label="Temperature (in Fahrenheit)"
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    name="oxygenSaturation"
+                    label="Oxygen Saturation"
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+
               </Grid>
               <Box mt={4}>
                 <Button

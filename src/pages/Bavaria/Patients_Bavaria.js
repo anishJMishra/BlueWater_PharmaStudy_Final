@@ -34,7 +34,7 @@ const handleLogout = async () => {
       <div>
       </div>
 
-      <ReactToPdf />
+     {/* <ReactToPdf />*/}
     </div>
   )
 }

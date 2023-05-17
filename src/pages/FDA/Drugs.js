@@ -1,12 +1,12 @@
 import React from 'react';
 import TopBanner from "../../components/TopBanner";
-import Send_Samples from '../../components/Send_Samples_Bavaria';
+import Assign_Drugs from '../../components/Assign_Drugs_FDA';
 import { useNavigate } from "react-router-dom";
 
 const Drugs = () => {
 	return (
 		<div>
-			<Send_Samples/>
+			<Assign_Drugs/>
 		</div>
 	)
 }

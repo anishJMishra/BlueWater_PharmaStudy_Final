@@ -19,6 +19,7 @@ import Shipment_Page from './pages/Bavaria/Shipment_Page_Bavaria';
 import BavariaHome from "./pages/Bavaria/Patients_Bavaria";
 import FDAHome from "./pages/FDAHome";
 import JHAddPatient from './pages/JaneHopkins_AddPatients';
+import JHManageStudy from './pages/JH_ManageStudy';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
 	  		
 
           <Route path="/JaneHopkins_AddPatients" element={<JHAddPatient />} />
+          <Route path="/JaneHopkins_ManageStudy" element={<JHManageStudy />} />
           </Routes>
     </div>
   );

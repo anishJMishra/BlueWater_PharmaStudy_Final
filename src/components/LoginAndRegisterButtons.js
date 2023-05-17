@@ -10,8 +10,10 @@ const LoginAndRegisterButtons = () => {
             spacing={4}
             align="center"
         >
-            <LoginButton />
-            <RegisterButton />
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '5em' }}>
+      <LoginButton />
+      <RegisterButton />
+    </div>
         </Stack> 
     </div>
   )

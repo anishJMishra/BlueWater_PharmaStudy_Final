@@ -9,7 +9,7 @@ import {
   Box,
   CircularProgress,
 } from "@mui/material";
-import SideBanner_Bavaria from "./SideBanner_FDA";
+import SideBanner_FDA from "./SideBanner_FDA";
 import PatientDisplay from "./PatientDisplay_FDABavaria";
 import PatientPopout from "./PatientPopout";
 import PatientPopout_Bavaria from "./PatientPopout_Bavaria";
@@ -51,15 +51,25 @@ const PatientList = () => {
 
     fetchPatients();
   }, [entities]);
-
+// <SideBanner_FDA />
   return (
     <div>
+      <head>
+        <style>
+          {`
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+          `}
+        </style>
+      </head>
+
       <Stack direction="row">
-        <SideBanner_Bavaria />
-        <Box></Box>
       </Stack>
       <h1>Patient List</h1>
-      <Button>View Patients</Button>
+      <button>
+        View Patients
+        <p></p>
+        <span><i className="fas fa-print"></i></span>
+      </button>
       {loading ? (
         <Box
           display="flex"

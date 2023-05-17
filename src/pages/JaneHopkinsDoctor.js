@@ -12,9 +12,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import SideBanner from "../components/SideBanner";
-import PatientDisplay from "../components/PatientDisplay";
-import { ApolloProvider } from "@apollo/client";
-import client from "../components/apolloClient";
 import { useNavigate } from "react-router-dom";
 import PatientPopout from "../components/PatientPopout";
 import { signOut } from 'firebase/auth';
@@ -32,6 +29,17 @@ const JaneHopkinsDoctor = () => {
 
   const [patients, setPatients] = useState([]);
 
+  const fetchPatients = async () => {
+    try {
+      const response = await entities.patient.list();
+      //console.log("Response:", response);
+      setPatients(response.items);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching patients:", error);
+    }
+  };
+
   const handlePatientClick = (patient) => {
     setSelectedPatient(patient);
     setIsPopoutOpen(true);
@@ -43,16 +51,7 @@ const JaneHopkinsDoctor = () => {
   };
 
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await entities.patient.list();
-        //console.log("Response:", response);
-        setPatients(response.items);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-      }
-    };
+    
 
     fetchPatients();
   }, [entities]);
@@ -66,6 +65,14 @@ const JaneHopkinsDoctor = () => {
 
   return (
     <div>
+      <head>
+        <style>
+          {`
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+          `}
+        </style>
+      </head>
+
       <TopBanner />
       <Navbar onLogout={handleLogout} />
       <Stack direction="row">
@@ -73,6 +80,13 @@ const JaneHopkinsDoctor = () => {
         <Box></Box>
       </Stack>
       <h1>Patient List</h1>
+
+      <button>
+        View Patients
+        <p></p>
+        <span><i className="fas fa-print"></i></span>
+      </button>
+
       
       {loading ? (
         <Box
@@ -93,6 +107,7 @@ const JaneHopkinsDoctor = () => {
             isOpen={isPopoutOpen}
             handleClose={handlePopoutClose}
             patient={selectedPatient}
+            onUpdatePatient = {fetchPatients}
           />
         </>
       )}

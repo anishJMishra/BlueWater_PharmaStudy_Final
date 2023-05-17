@@ -10,7 +10,9 @@ const FDANavbar = ({ onLogout }) => {
     <Box backgroundColor = "primary" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
     <AppBar position="static">
       <Toolbar>
-		  <img src={FDAIcon} style={{ width: "200px", height: "120px" }} />
+      <Typography variant = "h6" sx={{flexGrow: 1}}>
+		    <img style={{ width: '100px', height: '100px' }}src={FDAIcon} alt="Logo" />
+      </Typography>
 		<Button component={Link} to = "/FDA/Patients" color="inherit">
           Patients
 	  </Button>

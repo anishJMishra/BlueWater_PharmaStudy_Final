@@ -156,6 +156,7 @@ enum Vendia_OperationType {
   DELETE
   INVOKE
   ALL
+  ERASE_GLOBAL
 }
 
 type Vendia_Version_Connection_ {
@@ -196,10 +197,28 @@ enum Vendia_SyncMode {
   ASYNC
 }
 
+enum Vendia_EraseMode {
+  LOCAL
+  GLOBAL
+}
+
+type Vendia_Meta_Field {
+  _erased: [Vendia_Meta_Erased]
+  _hash: String!
+  _salt: String
+}
+
+type Vendia_Meta_Erased {
+  type: Vendia_EraseMode!
+  nodes: [String!]!
+}
+
 input Self_Drug_ConditionInput_ {
+  assigned: Vendia_ModelBooleanInput_
   batchNumber: Vendia_ModelStringInput_
   drugType: Vendia_ModelStringInput_
   id: Vendia_ModelStringInput_
+  _patientSelectedItem: Self_Drug_patientSelected_patientSelectedItem_ConditionInput_
   placebo: Vendia_ModelBooleanInput_
   shipmentHistory: Vendia_ModelStringInput_
   studyName: Vendia_ModelStringInput_
@@ -211,9 +230,11 @@ input Self_Drug_ConditionInput_ {
 
 input Self_Drug_FilterInput_ {
   _owner: Vendia_ModelStringInput_
+  assigned: Vendia_ModelBooleanInput_
   batchNumber: Vendia_ModelStringInput_
   drugType: Vendia_ModelStringInput_
   id: Vendia_ModelStringInput_
+  _patientSelectedItem: Self_Drug_patientSelected_patientSelectedItem_FilterInput_
   placebo: Vendia_ModelBooleanInput_
   shipmentHistory: Vendia_ModelStringInput_
   studyName: Vendia_ModelStringInput_
@@ -229,9 +250,11 @@ input Self_Drug_OrderInput_ {
 
 type Self_Drug {
   _id: ID!
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -242,9 +265,11 @@ type Self_Drug {
 
 type Self_Drug_Partial_ {
   _id: ID!
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_Partial_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -275,9 +300,11 @@ type Self_Drug_Connection_ {
 }
 
 input Self_Drug_Input_ {
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_Input_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -285,9 +312,11 @@ input Self_Drug_Input_ {
 }
 
 input Self_Drug_UpdateInput_ {
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_UpdateInput_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -295,9 +324,11 @@ input Self_Drug_UpdateInput_ {
 }
 
 input Self_Drug_PartialInput_ {
+  assigned: Boolean
   batchNumber: String
   drugType: String
   id: String
+  patientSelected: [Self_Drug_patientSelected_patientSelectedItem_PartialInput_]
   placebo: Boolean
   shipmentHistory: String
   studyName: String
@@ -401,7 +432,9 @@ input Self_Patient_ConditionInput_ {
   currentlyInsured: Vendia_ModelStringInput_
   dob: Vendia_ModelStringInput_
   familyHistory: Vendia_ModelStringInput_
+  gender: Vendia_ModelStringInput_
   height: Vendia_ModelStringInput_
+  hidden: Vendia_ModelStringInput_
   _icdHealthCodesItem: Self_Patient_icdHealthCodes_icdHealthCodesItem_ConditionInput_
   insuranceNumber: Vendia_ModelStringInput_
   name: Vendia_ModelStringInput_
@@ -426,7 +459,9 @@ input Self_Patient_FilterInput_ {
   currentlyInsured: Vendia_ModelStringInput_
   dob: Vendia_ModelStringInput_
   familyHistory: Vendia_ModelStringInput_
+  gender: Vendia_ModelStringInput_
   height: Vendia_ModelStringInput_
+  hidden: Vendia_ModelStringInput_
   _icdHealthCodesItem: Self_Patient_icdHealthCodes_icdHealthCodesItem_FilterInput_
   insuranceNumber: Vendia_ModelStringInput_
   name: Vendia_ModelStringInput_
@@ -455,7 +490,9 @@ type Self_Patient {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem]
   insuranceNumber: String
   name: String
@@ -479,7 +516,9 @@ type Self_Patient_Partial_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_Partial_]
   insuranceNumber: String
   name: String
@@ -523,7 +562,9 @@ input Self_Patient_Input_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_Input_]
   insuranceNumber: String
   name: String
@@ -544,7 +585,9 @@ input Self_Patient_UpdateInput_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_UpdateInput_]
   insuranceNumber: String
   name: String
@@ -565,7 +608,9 @@ input Self_Patient_PartialInput_ {
   currentlyInsured: String
   dob: String
   familyHistory: String
+  gender: String
   height: String
+  hidden: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_PartialInput_]
   insuranceNumber: String
   name: String
@@ -574,6 +619,42 @@ input Self_Patient_PartialInput_ {
   temperature: String
   uuid: String
   weight: String
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_ConditionInput_ {
+  name: Vendia_ModelStringInput_
+  _and: [Self_Drug_patientSelected_patientSelectedItem_ConditionInput_]
+  _or: [Self_Drug_patientSelected_patientSelectedItem_ConditionInput_]
+  _not: Self_Drug_patientSelected_patientSelectedItem_ConditionInput_
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_FilterInput_ {
+  name: Vendia_ModelStringInput_
+  _and: [Self_Drug_patientSelected_patientSelectedItem_FilterInput_]
+  _or: [Self_Drug_patientSelected_patientSelectedItem_FilterInput_]
+  _not: Self_Drug_patientSelected_patientSelectedItem_FilterInput_
+}
+
+type Self_Drug_patientSelected_patientSelectedItem {
+  name: String
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Partial_ {
+  name: String
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Result_ {
+  error: String
+  result: Self_Drug_patientSelected_patientSelectedItem
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Transaction_Result_ {
+  transaction: Vendia_Transaction!
+  result: Self_Drug_patientSelected_patientSelectedItem
+}
+
+type Self_Drug_patientSelected_patientSelectedItem_Delete_Transaction_Result_ {
+  transaction: Vendia_Transaction!
 }
 
 input Self_Patient_allergies_allergiesItem_ConditionInput_ {
@@ -2633,6 +2714,7 @@ type Vendia_File {
   fileVersion: String
   vendia: Vendia_File_vendia
   _owner: String
+  _erased: [Vendia_Meta_Erased]
 }
 
 type Vendia_File_Partial_ {
@@ -3840,6 +3922,7 @@ type Mutation {
   putVendia_File(id: ID!, input: Vendia_File_Input_!, condition: Vendia_File_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_File_Transaction_Result_
   updateVendia_File(id: ID!, input: Vendia_File_UpdateInput_!, condition: Vendia_File_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_File_Transaction_Result_
   removeVendia_File(id: ID!, condition: Vendia_File_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_File_Delete_Transaction_Result_
+  eraseVendia_File(id: ID!, eraseMode: Vendia_EraseMode!, syncMode: Vendia_SyncMode!): Vendia_File_Transaction_Result_
   addVendia_Folder(input: Vendia_Folder_Input_!, syncMode: Vendia_SyncMode!): Vendia_Folder_Transaction_Result_
   removeVendia_Folder(id: ID!, condition: Vendia_Folder_ConditionInput_, syncMode: Vendia_SyncMode!): Vendia_Folder_Delete_Transaction_Result_
   addVendia_Contract(input: Vendia_Contract_Input_!, aclInput: Vendia_Acls_Input_, syncMode: Vendia_SyncMode!): Vendia_Contract_Transaction_Result_
@@ -3920,6 +4003,18 @@ type Schema {
   query: Query
   mutation: Mutation
   subscription: Subscription
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_Input_ {
+  name: String
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_UpdateInput_ {
+  name: String
+}
+
+input Self_Drug_patientSelected_patientSelectedItem_PartialInput_ {
+  name: String
 }
 
 input Self_Patient_allergies_allergiesItem_Input_ {

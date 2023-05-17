@@ -48,15 +48,15 @@ const RegisterModal = (props) => {
         <Box
           align = "center"
           sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              // height: '50vh', // Sets the height of the Box to 100% of the viewport height
-              width: '100vw',
-              borderStyle: "solid",
-              borderColor: "#003987",
-              backgroundColor: "blue",
-            }}
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            width: '100vw',
+            borderStyle: 'solid',
+            borderColor: '#003987',
+            margin: 'auto', // Updated margin value
+          }}
         >
           <IconButton
             edge="end"
@@ -77,20 +77,31 @@ const RegisterModal = (props) => {
             <Stack>
                 <div>
                     <h2> Register User </h2>
+
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <h2 style={{ marginRight: '1em' }}>New Email:</h2>
                     <input
+                    style={{ padding: '8px', borderRadius: '5px' }}
                         placeholder="Email..."
                         onChange={(event) => {
                         setRegisterEmail(event.target.value);
                         }}
                     />
+</div>
+
+
+<div style={{ display: 'flex', alignItems: 'center' }}>
+                <h2 style={{ marginRight: '1em' }}>New Password:</h2>
                     <input
+                    style={{ padding: '8px', borderRadius: '5px' }}
                         placeholder="Password..."
                         onChange={(event) => {
                         setRegisterPassword(event.target.value);
                         }}
                     />
+</div>
 
-                    <button onClick={register}> Create User</button>
+                    <button onClick={register} style={{padding: "1em", borderRadius: "5px", backgroundColor: "#003987", color: "white"}}> Create User</button>
                 </div>
 
                 <h4> Register a user above. After doing so,

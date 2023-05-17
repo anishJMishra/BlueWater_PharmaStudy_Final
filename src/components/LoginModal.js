@@ -9,7 +9,8 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from "../firebase-config";
-import "./LoginModal.css"
+import "./LoginModal.css";
+import background from "../assets/background.jpeg";
 
 const LoginModal = (props) => {
 
@@ -63,7 +64,7 @@ const LoginModal = (props) => {
   const { onClose } = props;
 
   return (
-    <div className="modal">
+    <div className="modal" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
       <Modal
         open = {true} onClose = {onClose}
         sx={{
@@ -73,16 +74,17 @@ const LoginModal = (props) => {
         <Box
           align = "center"
           sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              // height: '50vh', // Sets the height of the Box to 100% of the viewport height
-              width: '100vw',
-              borderStyle: "solid",
-              borderColor: "#003987",
-              backgroundColor: "blue",
-            }}
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            width: '100vw',
+            borderStyle: 'solid',
+            borderColor: '#003987',
+            margin: 'auto', // Updated margin value
+          }}
         >
+
           <IconButton
             edge="end"
             color="inherit"
@@ -102,25 +104,48 @@ const LoginModal = (props) => {
             <Stack>
               <div>
                 <h2> Login </h2>
+
+
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <h2 style={{ marginRight: '1em' }}>Email:</h2>
+
+
                 <input
+                  style={{ padding: '8px', borderRadius: '5px' }}
                   placeholder="Email..."
                   onChange={(event) => {
                     setLoginEmail(event.target.value);
                   }}
                 />
-                <input
-                  placeholder="Password..."
-                  type="password"
-                  onChange={(event) => {
-                    setLoginPassword(event.target.value);
-                  }}
-                />
-
-                <button onClick={login}> Login</button>
               </div>
 
-              <h4>Current User Logged In: </h4>
-              {user ? user.email : "Not Logged In"}
+
+                <p></p>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+  <h2 style={{ marginRight: '1em' }}>Password:</h2>
+  <input
+    style={{ padding: '8px', borderRadius: '5px' }}
+    placeholder="Password..."
+    type="password"
+    onChange={(event) => {
+      setLoginPassword(event.target.value);
+    }}
+  />
+</div>
+
+                <button onClick={login} style={{padding: "1em", borderRadius: "5px", backgroundColor: "#003987", color: "white"}}> Login</button>
+              </div>
+
+             {/* <h4>Current User Logged In: </h4>
+              {user ? user.email : "Not Logged In"}*/} 
+              
+              {user && (
+  <div>
+    <h4>Logged In:</h4>
+    <span>{user.email}</span>
+  </div>
+)}
+{!user && <h4>Not Logged In</h4>}
 
               <button onClick={logout}> Sign Out </button>
             </Stack>
