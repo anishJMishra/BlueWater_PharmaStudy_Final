@@ -45,7 +45,39 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
   const [drugId, setDrugId] = useState();
   const [studyStatus, setStudyStatus] = useState();
 
+  const [totalDoses, setTotalDoses] = useState("0/5");
 
+
+
+  const confirmClick = async (drugId, status, studyName) => {
+    try {
+      //const formattedID = await entities.drug.product.get(drugId);
+
+      if (status === "pending") {
+        status = "accepted";
+      } else if (status === "accepted") {
+        status = "completed";
+      }
+
+      const drugFormForUpdate = await entities.drug.update({
+        _id: drugId,
+        assigned: true,
+        studyStatus: status
+      });
+
+      if (status === "pending") {
+        status = "accepted";
+      } else if (status === "accepted") {
+        status = "concluded";
+      }
+
+      //console.log("TEST", drugId);
+      alert("Confirmed! " + studyName + " is " + status + ". Thank you!");
+    } catch (error) {
+      console.error("Error handling checkbox change:", error);
+      // Perform additional error handling if needed
+    }
+  };
 
   const handlePatientClick = (patient) => {
     setSelectedPatient(patient);
@@ -160,35 +192,33 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
       handlePatientClick(row.patientSelected);
       setDrugId(row.drugId);
       setStudyStatus(row.studyStatus);
+      confirmClick(row.drugId, row.studyStatus, row.studyName);
     }}>
       Accept
     </button>
-    <AssignPopout
-                        isOpen={isPopoutOpen}
-                        handleClose={handlePopoutClose}
-                        patient={selectedPatient}
-                        drugId={row.drugId}
-                        status={row.studyStatus}
-                            />
   </div>
 )}
 
-      {row.studyStatus === "accepted" ? (
-              <button>Conclude Study</button>
-            ) : null}
-            {isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
-              <div>
-
-                   </div>   
-              )}
-              
+      {row.studyStatus === "accepted" && (
+              <button onClick={() => {
+                handlePatientClick(row.patientSelected);
+                setDrugId(row.drugId);
+                setStudyStatus(row.studyStatus);
+                confirmClick(row.drugId, row.studyStatus, row.studyName);
+              }}>
+                Conclude Study {totalDoses}</button>
+            )}
 
 
 
               </TableCell>
               <TableCell style={{ fontSize: 25 }}>
+                <p style={{ textDecoration: "underline" }}>Dosage tracking:</p>{" "}
+                {"Doses count: " + "/5"}
+              </TableCell>
+              <TableCell style={{ fontSize: 25 }}>
                 <p style={{ textDecoration: "underline" }}>Dosage information:</p>{" "}
-                {row.placebo}
+                {row.placebo === true ? "Placebo: T" : "Placebo: F"}
               </TableCell>
               <TableCell style={{ fontSize: 25 }}>
                 <p style={{ textDecoration: "underline" }}>Type of Drug:</p>{" "}

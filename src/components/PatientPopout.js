@@ -23,7 +23,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import unknown from "../assets/profilePictures/unknownpatient.png";
+import unknown from "../assets/default.png";
 import man from "../assets/profilePictures/man.jpg";
 import woman from "../assets/profilePictures/woman.jpg";
 
@@ -314,9 +314,9 @@ const PatientPopout = ({ isOpen, handleClose, patient, onUpdatePatient }) => {
             />
           </div>
           <div style={{ marginLeft: "1em" }}>
-          <p>Name: {patient.hidden === "no" ? patient.name : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
-          <p>Date: {patient.hidden === "no" ? patient.dob : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
-          <p>Height/Weight: {patient.hidden === "no" ? `${patient.height} / ${patient.weight}` : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
+          <p>Name: {patient.name}</p>
+          <p>Date: {patient.dob }</p>
+          <p>Height/Weight: {`${patient.height} / ${patient.weight}`}</p>
           </div>
         </div>
       </Typography>
