@@ -82,15 +82,16 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
   
         for (let i = 0; i < drugResponseSize; i++) {
           rows.push({
-            patientName: patientResponse.items[i].name,
             studyName: drugResponse.items[i].studyName,
-            studyStatus: drugResponse.items[i].studyStatus,
-            shipmentHistory: drugResponse.items[i].shipmentHistory,
-            drugType: drugResponse.items[i].drugType,
-            uuID: drugResponse.items[i].id,
-            placebo: drugResponse.items[i].placebo,
-            batchNumber: drugResponse.items[i].batchNumber,
-            selectedPatient: drugResponse.items[i].patientSelected,
+              studyStatus: drugResponse.items[i].studyStatus,
+              shipmentHistory: drugResponse.items[i].shipmentHistory,
+              drugType: drugResponse.items[i].drugType,
+              batchNumber: drugResponse.items[i].batchNumber,
+              placebo: drugResponse.items[i].placebo,
+              selectedPatient: drugResponse.items[i].patientSelected,
+              id: drugResponse.items[i].id,
+              assign: drugResponse.items[i].assigned || false,
+              drugId: drugResponse.items[i]._id,
           });
         }
   
@@ -153,20 +154,24 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
               )}
 
 
-        { row.studyStatus === "pending" ? (
-              <button onClick={() => { handlePatientClick(row.patientSelected); setDrugId(row.drugId); setStudyStatus(row.studyStatus) }}>Accept</button>
-            ) : null}
-            {isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
-                <div>
-                  <AssignPopout
+{row.studyStatus === "pending" && (
+  <div>
+    <button onClick={() => {
+      handlePatientClick(row.patientSelected);
+      setDrugId(row.drugId);
+      setStudyStatus(row.studyStatus);
+    }}>
+      Accept
+    </button>
+    <AssignPopout
                         isOpen={isPopoutOpen}
                         handleClose={handlePopoutClose}
                         patient={selectedPatient}
                         drugId={row.drugId}
                         status={row.studyStatus}
                             />
-                </div>   
-              )}
+  </div>
+)}
 
       {row.studyStatus === "accepted" ? (
               <button>Conclude Study</button>

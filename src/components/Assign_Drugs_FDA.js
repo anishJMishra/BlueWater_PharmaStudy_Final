@@ -160,7 +160,7 @@ const Send_Samples = () => {
               patientSelected: drugResponse.items[i].patientSelected,
               id: drugResponse.items[i].id,
               assign: drugResponse.items[i].assigned || false,
-              drugId: drugResponse.items[i]._id
+              drugId: drugResponse.items[i]._id,
             });
 
           }
@@ -203,9 +203,6 @@ const Send_Samples = () => {
                           <div>
   
             <button onClick={() => { handlePatientClick(row.patientSelected); setDrugId(row.drugId); }}>Assign Drugs</button>
-  
-  
-  
                                   <AssignPopout
                         isOpen={isPopoutOpen}
                         handleClose={handlePopoutClose}
@@ -213,6 +210,7 @@ const Send_Samples = () => {
                         drugId={row.drugId}
                             />
                       </div>
+                      
                       ) : row.assign === true ? (
                         <button style={{ color: "grey", pointerEvents: "none" }}>Drugs Assigned</button>
                         

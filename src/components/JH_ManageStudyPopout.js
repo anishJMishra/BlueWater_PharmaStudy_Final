@@ -20,7 +20,7 @@ import man from "../assets/profilePictures/man.jpg";
 import woman from "../assets/profilePictures/woman.jpg";
 
 
-export const Assign_Drugs_Popout = ({ isOpen, handleClose, patient, drugId, status }) => {
+export const JH_ManageStudyPopout = ({ isOpen, handleClose, patient, drugId, status }) => {
   const { entities } = useBavaria();
 
   const [loading, setLoading] = useState(true);
@@ -125,7 +125,7 @@ export const Assign_Drugs_Popout = ({ isOpen, handleClose, patient, drugId, stat
   <div>
     <div>
       <h2>Manage Study (Please Confirm):</h2>
-      <p>Are you sure? Do you want to [confirm this] study?</p>
+      <p>Are you sure...? Do you want to [confirm this] study?</p>
       <button onClick={() => confirmClick(drugId, status)}>Confirm</button>
     </div>
   </div>
@@ -139,4 +139,4 @@ export const Assign_Drugs_Popout = ({ isOpen, handleClose, patient, drugId, stat
   );
 };
 
-export default Assign_Drugs_Popout;
+export default JH_ManageStudyPopout;
