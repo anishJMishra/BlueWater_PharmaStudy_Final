@@ -70,7 +70,7 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
       if (status === "pending") {
         status = "accepted";
       } else if (status === "accepted") {
-        status = "concluded";
+        status = "accepeted";
       }
 
       //console.log("TEST", drugId);
