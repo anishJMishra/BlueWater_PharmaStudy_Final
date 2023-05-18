@@ -98,7 +98,7 @@ const Send_Samples = () => {
                 id="input-box"
                 value={studyName}
                 onChange={(event) => setStudyName(event.target.value)}
-              />
+              />*
             </TableCell>
           </TableRow>
 
@@ -164,7 +164,7 @@ const Send_Samples = () => {
                 id="input-box"
                 value={id}
                 onChange={(event) => setId(event.target.value)}
-              />
+              />*
             </TableCell>
           </TableRow>
         </Table>
