@@ -31,11 +31,9 @@ const Navbar = ({ onLogout }) => {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Jane Hopkins
         </Typography>
-        <Typography
-            sx={{pr: '10px'}} style={{textDecoration: "underline"}}
-          >
-            User: {user.email}
-        </Typography>
+        <Typography sx={{ pr: '10px' }} style={{ textDecoration: 'underline' }}>
+      User: {user.email}
+    </Typography>
         <Button color="inherit" onClick = {handlePatientViewClick}>
           Patient View
         </Button>
