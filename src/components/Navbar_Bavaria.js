@@ -23,11 +23,11 @@ const Navbar_Bavaria = ({ onLogout }) => {
             <img style={{ width: '100px', height: '100px' }} src={logo} alt="Logo" />
           </Typography>
 
-          <Typography
+          {/* <Typography
             sx={{pr: '10px'}} style={{textDecoration: "underline"}}
           >
             User: {user.email}
-          </Typography>
+          </Typography> */}
 
           <Button color="inherit"
           component={Link}

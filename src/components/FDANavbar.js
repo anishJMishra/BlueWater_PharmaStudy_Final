@@ -18,11 +18,11 @@ const FDANavbar = ({ onLogout }) => {
       <Typography variant = "h6" sx={{flexGrow: 1}}>
 		    <img style={{ width: '100px', height: '100px' }}src={FDAIcon} alt="Logo" />
       </Typography>
-      <Typography
+      {/* <Typography
             sx={{pr: '10px'}} style={{textDecoration: "underline"}}
           >
             User: {user.email}
-        </Typography>
+        </Typography> */}
         <Button component={Link} to = "/FDA/Patients" color="inherit">
               Patients
         </Button>
