@@ -57,6 +57,8 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
         status = "accepted";
       } else if (status === "accepted") {
         status = "completed";
+      } else if (status === "rejected") {
+        status = "rejected";
       }
 
       const drugFormForUpdate = await entities.drug.update({
@@ -170,7 +172,7 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
 
 
                 {row.studyStatus === "accepted" || row.studyStatus === "completed" ? (
-              <button onClick={viewTrial}>View Trial</button>
+              <button style={{backgroundColor: "#FF9A00"}} onClick={viewTrial}>View Trial</button>
             ) : null}
             {isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
               <div>
@@ -188,7 +190,7 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
 
 {row.studyStatus === "pending" && (
   <div>
-    <button onClick={() => {
+    <button style={{backgroundColor: "#19F745" }} onClick={() => {
       handlePatientClick(row.patientSelected);
       setDrugId(row.drugId);
       setStudyStatus(row.studyStatus);
@@ -196,11 +198,20 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
     }}>
       Accept
     </button>
+
+    <button style={{backgroundColor: "#E85151"}} onClick={() => {
+      handlePatientClick(row.patientSelected);
+      setDrugId(row.drugId);
+      setStudyStatus(row.studyStatus);
+      confirmClick(row.drugId, row.studyStatus = "rejected", row.studyName);
+    }}>
+      Reject
+    </button>
   </div>
 )}
 
       {row.studyStatus === "accepted" && (
-              <button onClick={() => {
+              <button style={{backgroundColor: "#E8E851"}} onClick={() => {
                 handlePatientClick(row.patientSelected);
                 setDrugId(row.drugId);
                 setStudyStatus(row.studyStatus);
@@ -242,13 +253,12 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
                   Study Status:
                 </p>{" "}
                 <p style={{
-                    borderTop: "1px solid black",
-                    borderBottom: "1px solid black",
+                    border: "1px solid white",
                     backgroundColor:
                       row.studyStatus === "accepted"
-                        ? "#0000FF"
+                        ? "#00BFFF"
                         : row.studyStatus === "rejected"
-                        ? "red"
+                        ? "#E85151"
                         : row.studyStatus === "pending"
                         ? "yellow"
                         : row.studyStatus === "completed"
