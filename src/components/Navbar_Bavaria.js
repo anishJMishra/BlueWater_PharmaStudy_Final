@@ -11,7 +11,7 @@ import { auth } from "../firebase-config";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Navbar_Bavaria = ({ onLogout }) => {
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
 
   return (
     <ThemeProvider theme = {Bavariatheme}>

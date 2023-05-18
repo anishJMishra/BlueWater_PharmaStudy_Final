@@ -7,7 +7,7 @@ import { auth } from "../firebase-config";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Navbar = ({ onLogout }) => {
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
   const handleAddPatientClick = () => {
