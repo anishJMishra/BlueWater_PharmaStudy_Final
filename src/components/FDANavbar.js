@@ -19,7 +19,7 @@ const FDANavbar = ({ onLogout }) => {
 		    <img style={{ width: '100px', height: '100px' }}src={FDAIcon} alt="Logo" />
       </Typography>
       <Typography
-            sx={{pr: '10px'}}
+            sx={{pr: '10px'}} style={{textDecoration: "underline"}}
           >
             User: {user.email}
         </Typography>

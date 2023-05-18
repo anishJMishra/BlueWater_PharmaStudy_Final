@@ -14,6 +14,7 @@ import PatientDisplay from "./PatientDisplay_FDABavaria";
 import PatientPopout from "./PatientPopout";
 import PatientPopout_Bavaria from "./PatientPopout_Bavaria";
 import useBavaria from "../hooks/useBavaria";
+import patientlogo from "../assets/patientlist.png";
 
 const PatientList = () => {
   const { entities } = useBavaria();
@@ -66,7 +67,7 @@ const PatientList = () => {
         {/* <SideBanner_Bavaria />*/}
         
       </Stack>
-      <h1 style={{textAlign: "center"}}>Patient List</h1>
+      <h1 style={{textAlign: "center"}}>Patient List <img src={patientlogo} style={{ height: "1.5em" }} /></h1>
       <button>
         View Patients
         <p></p>

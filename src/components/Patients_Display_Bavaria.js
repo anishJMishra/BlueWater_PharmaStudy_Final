@@ -6,6 +6,7 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
+import trial from "../assets/trial.png";
 
 const Patients_Display = ({ isOpen, handleClose, patient }) => {
   const { entities } = useBavaria();
@@ -63,7 +64,13 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1 style={{ textAlign: "center" }}>Ongoing Trials:</h1>
+      <style>
+          {`
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+          `}
+        </style>
+
+        <h1 style={{textAlign: "center"}}>Ongoing Trials <img src={trial} style={{ height: "1.5em" }} /></h1>
       <button>
         View Trials
         <p></p>
@@ -93,7 +100,8 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
                       {row.selectedPatient && row.selectedPatient.length > 0 && (
                         row.selectedPatient.map((patient, index) => (
                           //////////////
-                          <p key={index}>{patient.name}</p>
+                        {/*<p key={index}>{patient.name}</p>*/},
+                        <p key={index} style={{backgroundColor: "black"}}>Classified</p>
                     ))
                   )}
                 </TableCell>
@@ -122,18 +130,20 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
             <p>Study Status:</p>{" "}
             <p
               style={{
-                borderTop: "1px solid black",
-                borderBottom: "1px solid black",
+                border: "1px solid white",
                 backgroundColor:
                   row.studyStatus === "accepted"
-                    ? "#0000FF"
+                    ? "#2D77F7"
                     : row.studyStatus === "rejected"
-                    ? "red"
+                    ? "#FA4F4F"
                     : row.studyStatus === "pending"
                     ? "yellow"
                     : row.studyStatus === "completed"
                     ? "#00FF00"
                     : "inherit",
+                color: 
+                row.studyStatus === "accepted"
+                  && "black"
               }}
             >
               {row.studyStatus}

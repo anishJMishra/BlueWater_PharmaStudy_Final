@@ -20,7 +20,7 @@ import man from "../assets/profilePictures/man.jpg";
 import woman from "../assets/profilePictures/woman.jpg";
 
 
-export const Assign_Drugs_Popout = ({ isOpen, handleClose, patient, drugId }) => {
+export const Assign_Drugs_Popout = ({ isOpen, handleClose, patient, drugId, status }) => {
   const { entities } = useBavaria();
 
   const [loading, setLoading] = useState(true);
@@ -29,13 +29,20 @@ export const Assign_Drugs_Popout = ({ isOpen, handleClose, patient, drugId }) =>
   const [viewMode, setViewMode] = useState();
   const [patientName, setpatientName] = useState("David Upal"); // setPatientName when clicked on a name
 
-  const confirmClick = async (drugId) => {
+  const confirmClick = async (drugId, statsus) => {
     try {
       //const formattedID = await entities.drug.product.get(drugId);
 
+      if (status === "pending") {
+        status = "accepted";
+      } else if (status === "accepted") {
+        status = "completed";
+      }
+
       const drugFormForUpdate = await entities.drug.update({
         _id: drugId,
-        assigned: true
+        assigned: true,
+        studyStatus: status
       });
 
       //console.log("TEST", drugId);
@@ -117,9 +124,9 @@ export const Assign_Drugs_Popout = ({ isOpen, handleClose, patient, drugId }) =>
 <Typography variant="h6" gutterBottom>
   <div>
     <div>
-      <h2>Assign Drugs (Please Confirm):</h2>
-      <p>Are you sure? Do you want to confirm this drug assignment?</p>
-      <button onClick={() => confirmClick(drugId)}>Confirm</button>
+      <h2>Manage Study (Please Confirm):</h2>
+      <p>Are you sure? Do you want to [confirm this] study?</p>
+      <button onClick={() => confirmClick(drugId, status)}>Confirm</button>
     </div>
   </div>
 </Typography>

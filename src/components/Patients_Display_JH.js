@@ -18,6 +18,8 @@ import {
 } from "@mui/material";
 import StudyProgress from './StudyProgress';
 import search from "../assets/search.png";
+import manageStudyPopout from "../components/JH_ManageStudyPopout";
+import AssignPopout from "./JH_ManageStudyPopout";
 
 
 
@@ -39,6 +41,9 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
   const [patients, setPatients] = useState([]);
 
   const [isClickedTrial, setIsClickedTrial] = useState(false);
+
+  const [drugId, setDrugId] = useState();
+  const [studyStatus, setStudyStatus] = useState();
 
 
 
@@ -95,7 +100,7 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
         console.log(rows[7].selectedPatient);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching patients:", error);
+        console.error("Error fetching patients:", error );
       }
     };
   
@@ -149,12 +154,18 @@ const Patients_Display = ({ isOpen, handleClose, patient }) => {
 
 
         { row.studyStatus === "pending" ? (
-              <button>Accept</button>
+              <button onClick={() => { handlePatientClick(row.patientSelected); setDrugId(row.drugId); setStudyStatus(row.studyStatus) }}>Accept</button>
             ) : null}
             {isClickedTrial && (row.studyStatus === "accepted" || row.studyStatus === "completed") && (
-              <div>
-
-                   </div>   
+                <div>
+                  <AssignPopout
+                        isOpen={isPopoutOpen}
+                        handleClose={handlePopoutClose}
+                        patient={selectedPatient}
+                        drugId={row.drugId}
+                        status={row.studyStatus}
+                            />
+                </div>   
               )}
 
       {row.studyStatus === "accepted" ? (

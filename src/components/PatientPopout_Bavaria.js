@@ -104,8 +104,8 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
 
             <Paper sx={{ p: 2 }}>
               <Typography variant="subtitle1">Name</Typography>
-              <Typography variant="body2" style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
-  {patient.hidden === "no" ? patient.name : "Redacted"}
+              <Typography variant="body2" style={{ backgroundColor: patient.hidden === "no" ? "yellow" : "yellow" }}>
+  {patient.hidden === "no" ? "Redacted" : "Redacted"}
 </Typography>
             </Paper>
           </Grid>
@@ -118,8 +118,8 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Paper sx={{ p: 2 }}>
               <Typography variant="subtitle1">Insurance Number</Typography>
-              <Typography variant="body2" style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
-  {patient.hidden === "no" ? patient.insuranceNumber : "Redacted"}
+              <Typography variant="body2" style={{ backgroundColor: patient.hidden === "no" ? "yellow" : "yellow" }}>
+  {patient.hidden === "no" ? "Redacted" : "Redacted"}
 </Typography>            </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -164,11 +164,11 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
           </TableHead>
           <TableBody>
             <TableRow>
-            <TableCell style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
-  {patient.hidden === "no" ? patient.name : "Redacted"}
+            <TableCell style={{ backgroundColor: patient.hidden === "no" ? "yellow" : "yellow" }}>
+  {patient.hidden === "no" ? "Redacted" : "Redacted"}
 </TableCell>              <TableCell>{patient.dob}</TableCell>
-<TableCell style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
-  {patient.hidden === "no" ? patient.insuranceNumber : "Redacted"}
+<TableCell style={{ backgroundColor: patient.hidden === "no" ? "yellow" : "yellow" }}>
+  {patient.hidden === "no" ? "Redacted" : "Redacted"}
 </TableCell>
               <TableCell>{patient.height}</TableCell>
               <TableCell>{patient.weight}</TableCell>
@@ -230,15 +230,15 @@ export const PatientPopout_Bavaria = ({ isOpen, handleClose, patient }) => {
         <div style={{ display: "flex" }}>
           <div style={{ width: "10em", height: "10em", borderRadius: "50%", overflow: "hidden" }}>
             <img
-              src={patient.hidden === "no" && patient.gender === "M" ? man : patient.hidden === "no" && patient.gender === "F" ? woman : unknown}
+              src={patient.hidden === "no" && patient.gender === "Ma" ? man : patient.hidden === "no" && patient.gender === "Fs" ? woman : unknown}
               alt="Gender"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>
           <div style={{ marginLeft: "1em" }}>
-          <p>Name: {patient.hidden === "no" ? patient.name : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
-          <p>Date: {patient.hidden === "no" ? patient.dob : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
-          <p>Height/Weight: {patient.hidden === "no" ? `${patient.height} / ${patient.weight}` : <span style={{ backgroundColor: "black" }}>Classified</span>}</p>
+          <p>Name: <span style={{ backgroundColor: "black" }}>ClassifedClassifed</span></p>
+          <p>Date: <span style={{ backgroundColor: "black" }}>ClassifedClassifed</span></p>          
+          <p>Height/Weight: <span style={{ backgroundColor: "black" }}>ClassifedClassifed</span></p>
           </div>
         </div>
       </Typography>

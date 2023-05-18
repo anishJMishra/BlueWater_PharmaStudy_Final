@@ -23,12 +23,12 @@ const PatientTable = ({ patients, onPatientClick }) => {
           <tr key={patient.id}>
             <td>
             <Button onClick={() => onPatientClick(patient)} style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "yellow" }}>
-  {patient.hidden === "no" ? patient.name : "Redacted"}
+  {patient.hidden === "no" ? "(participating in trial)" : "Redacted"}
 </Button>
             </td>
             <td>{patient.dob}</td>
             <td style={{ backgroundColor: patient.hidden === "no" ? "transparent" : "pink" }}>
-  {patient.hidden === "no" ? patient.insuranceNumber : "Redacted"}
+            <p style={{backgroundColor: patient.hidden === "no" && ""}}>{patient.hidden === "no" ? "Redacted" : "Redacted"}</p>
 </td>          </tr>
         ))}
       </tbody>

@@ -24,7 +24,7 @@ const Navbar_Bavaria = ({ onLogout }) => {
           </Typography>
 
           <Typography
-            sx={{pr: '10px'}}
+            sx={{pr: '10px'}} style={{textDecoration: "underline"}}
           >
             User: {user.email}
           </Typography>
