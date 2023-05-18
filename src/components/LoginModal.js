@@ -38,7 +38,7 @@ const LoginModal = (props, { onLogin }) => {
       const detectedEmail = loginEmail.split('@')[1];
 
       if (detectedEmail === 'fda.com') {
-        navigate("/FDAHome");
+          navigate("/FDA/Patients");
       }
       else if (detectedEmail === 'janehopkins.com') {
         navigate("/JaneHopkinsDoctor");
