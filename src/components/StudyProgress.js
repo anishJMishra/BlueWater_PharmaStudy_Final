@@ -15,19 +15,19 @@ import useJaneHopkins from "../hooks/useJaneHopkins";
 
 const StudyProgress= ({studyStatus}) => {
 let trackStatus = -4;
-if (studyStatus === 'completed') {
+if (studyStatus.studyStatus === 'completed') {
     trackStatus = 4;
 }
 
-if(studyStatus === 'accepted') {
+if(studyStatus.studyStatus === 'accepted') {
     trackStatus = 3;
 }
 
-if (studyStatus === 'pending') {
+if (studyStatus.studyStatus === 'pending') {
     trackStatus = 2;
 }
 
-if (studyStatus === 'assigned') {
+if (studyStatus.studyStatus === 'assigned') {
     trackStatus = 1;
 }
 
@@ -35,7 +35,7 @@ if (studyStatus === 'assigned') {
         
             <div>
 
-                <Container className = "pbar">
+                <Container >
                     <div> 
                         <h2>Study Progress</h2>
 

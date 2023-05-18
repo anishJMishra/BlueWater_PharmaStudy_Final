@@ -7,25 +7,33 @@ import StudyProgress from "./StudyProgress";
 
 const DropdownMenu = ({ options }) => {
 
-  const [selectedStudy, setSelectedStudy] = useState(0);
-  const handleOptionChange = (event) => {
-    setSelectedStudy(event.target.value);
-  
-};
+  const [selectedStudy, setSelectedStudy] = useState(null);
+ 
+ 
+  const handleSelectOption = (event) => {
+    const optionId = event.target.value;
+    const selected = options.find((option) => option.studyName === optionId);
+    setSelectedStudy(selected);
+  };
   
 
   return (
     
     <div className = "pbar">
       <h1>Select a Study to View Progress Bar</h1>
-      <select value={selectedStudy} onChange={handleOptionChange}>
+      <select onChange={handleSelectOption}>
         <option value="">Select an option</option>
-        {options.map((object) => (
-          <option key={object.studyStatus} value={object.studyStatus}>
-            {object.studyName}
+        {options.map((option) => (
+          <option key={option.studyName} value={option.studyName}>
+            {option.studyName}
           </option>
         ))}
       </select>
+      
+      {selectedStudy && (
+        <p>Selected option: {selectedStudy.studyName}</p>
+      )}
+
       {selectedStudy && <StudyProgress studyStatus = {selectedStudy}/>}
       
           
